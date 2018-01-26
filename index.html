@@ -13,12 +13,12 @@
 
 		
 		<div id="content">
-			<ul>
-				<template v-for='list in food'>
-					<li v-for='recipe in list.recipe'>
-						<p>{{recipe.name}} - {{recipe.directions}}</p>
-					</li>
-				</template>
+			<form action="">
+				<input type="text" class="search-input">
+				<button type="button" v-on:click='searchVitamin'>Search</button>
+			</form>
+			<ul class="ul">
+
 			</ul>
 		</div>
 
