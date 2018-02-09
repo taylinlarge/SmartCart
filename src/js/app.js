@@ -1,95 +1,5 @@
 "use strict";
 
-// var app = new Vue({
-//   el: '#content',
-//   data: {
-//     food: [
-//     	{
-//     		name: 'Broccoli',
-//     		vitamins: 
-//     			{
-//     				vitaminA: 567 + 'IU',
-//     				vitaminB: 0,
-//     				vitaminC: 81.2 + 'mg',
-//     				vitaminD: 0,
-//     				vitaminE: 0,
-//     				calcium: 42.8 + 'mg',
-//     				fiber: 2.4 + 'g',
-//     				iron: 0.7 + 'mg',
-//     				magnesium: 19.1 + 'mg',
-//     				potassium: 288 + 'mg',
-//     				protein: 2.6 + 'g',
-
-//     			},
-
-//     		recipe: [
-//     			{
-//     				name: 'Broccoli Casserol',
-//     				ingredients: ['Broccoli', 'Cheese', 'Mayonaise', 'Mushroom Soup', 'Eggs', 'Butter'],
-//     				directions: 'Preheat oven to 350°F. Spray a 13 x 9 inch baking dish with cooking spray. In a large bowl, combine broccoli, mayonnaise, cheese, soup and eggs. Mix well. Place the mixture in pan. Top with crushed crackers and pour the melted butter evenly over crackers. Bake for 35 minutes or until set and browned.',
-//     			},
-//     			{
-//     				name: 'Broccoli With Lemon Butter Sauce',
-//     				ingredients: ['Broccoli', 'Butter', 'Water', 'Lemon', 'Salt and Pepper', 'Cayenne'],
-//     				directions: 'In a large skillet, combine the butter, water, lemon juice, cayenne pepper, salt and pepper. Bring to a simmer over medium heat. Add the broccoli to the pan, stir to coat, and cover with a lid. Cook for 10 to 15 minutes over medium-low heat, stirring once, until broccoli is tender but still bright green. Serve warm, or refrigerate and serve cold.'
-//     			},
-//     			{
-//     				name: 'Broccoli Cheedar Soup',
-//     				ingredients: ['Broccoli', 'Cheese', 'Onion', 'Flour', 'Eggs', 'Butter', 'Milk', 'Chicken Stock', 'Carrots', 'Celery', 'Salt and Pepper'],
-//     				directions: 'Melt 1 tablespoon butter in a skillet over medium-high heat. Saute onion in hot butter until translucent, about 5 minutes. Set aside. Whisk 1/4 cup melted butter and flour together in a large saucepan over medium-low heat; cook until flour loses it\'s granular texture, adding 1 to 2 tablespoons of milk if necessary to keep the flour from burning, 3 to 4 minutes. Gradually pour milk into flour mixture while whisking constantly. Stir chicken stock into milk mixture. Bring to a simmer; cook until flour taste is gone and mixture is thickened, about 20 minutes. Add broccoli, carrots, sauteed onion, and celery; simmer until vegetables are tender, about 20 minutes. Stir Cheddar cheese into vegetable mixture until cheese melts. Season with salt and pepper to taste.',
-//     			},
-//     		]
-
-//     	},
-//     	{
-//     		name: 'Banana',
-//     		vitamins:
-//     			{
-//     				vitaminA: 144 + 'IU',
-//     				vitaminB: 0,
-//     				vitaminC: 19.6 + 'mg',
-//     				vitaminD: 0,
-//     				vitaminE:  0.2 + 'mg',
-//     				calcium: 11.3 + 'mg',
-//     				fiber: 5.9 + 'g',
-//     				iron: 0.6 + 'mg',
-//     				magnesium: 60.8 + 'mg',
-//     				potassium: 806 + 'mg',
-//     				protein: 2.5 + 'g',
-
-//     			},
-//     		recipe: [
-//     			{
-
-//     			}
-//     		]
-
-//     	},
-//     ]
-//   },
-//   methods: {
-//   	findRecipes: function(e) {
-//   		for (var i = 0; i < app.food.length; i++) {
-
-//   			if (e.currentTarget.innerHTML == app.food[i].name) {
-  				
-//   				for (var r = 0; r < app.food[i].recipe.length; r++) {
-//   					console.log(app.food[i].recipe[r].name);
-
-//   					var wrapper = document.querySelector('#content');
-//   					var recipe = document.createElement('div');
-
-//   					recipe.innerHTML = app.food[i].recipe[r].directions;
-//   					wrapper.appendChild(recipe);
-//   				}
-//   			}
-//   		}
-//   	}
-//   }
-// })
-
-
-
 /*
 
 	vitamin list:
@@ -105,326 +15,243 @@
 			recipes:
 				show recipes with vitamin chosen in them. show DV%, 
 
+
+
+	Create seperate recipe array
 */
 
 
-var app2 = new Vue({
-	el: '#content',
-	data: {
-		vitamins: [
-			{
-				name: 'Calcium',
-				food: [
-					{
-						type: 'Milk',
-						dv: '30%',
-						mg: 300,
-					},
-					{
-						type: 'Kale',
-						dv: '24%',
-						mg: 245,
-					},
-					{
-						type: 'Sardines',
-						dv: '21%',
-						mg: 217,
-					},
-					{
-						type: 'Yogurt',
-						dv: '30%',
-						mg: 300,
-					},
-					{
-						type: 'Broccoli',
-						dv: '9%',
-						mg: 93,
-					},
-					{
-						type: 'Watercress',
-						dv: '4%',
-						mg: 41,
-					},
-					{
-						type: 'Cheese',
-						dv: '23%',
-						mg: 224
-					},
-					{
-						type: 'Bok Choy',
-						dv: '7%',
-						mg: 74,
-					},
-					{
-						type: 'Okra',
-						dv: '8%',
-						mg: 82,
-					},
-					{
-						type: 'Almonds',
-						dv: '8%',
-						mg: 76,
-					},
-				]
-			},
-			{
-				name: "Vitamin C",
-				food: [
-					{
-						type: 'Guava',
-						dv: '628%',
-						mg: 377,
-					},
-					{
-						type: 'Black Currant',
-						dv: '338%',
-						mg: 203,
-					},
-					{
-						type: 'Red Pepper',
-						dv: '317%',
-						mg: 190,
-					},
-					{
-						type: 'Kiwi',
-						dv: '273%',
-						mg: 164,
-					},
-					{
-						type: 'Green Pepper',
-						dv: '200%',
-						mg: 120,
-					},
-					{
-						type: 'Orange',
-						dv: '163%',
-						mg: 82,
-					},
-					{
-						type: 'Strawberries',
-						dv: '149%',
-						mg: 89.4,
-					},
-					{
-						type: 'Papaya',
-						dv: '144%',
-						mg: 86.5,
-					},
-					{
-						type: 'Broccoli',
-						dv: '135%',
-						mg: 81.2,
-					},
-					{
-						type: 'Kale',
-						dv: '134%',
-						mg: 80,
-					},
-				]
-			},
-			{
-				name: 'Potassium',
-				food: [
-					{
-						type: 'Avocado',
-						dv: '30%',
-						mg: 1067,
-					},
-					{
-						type: 'Acorn Squash',
-						dv: '26%',
-						mg: 896,
-					},
-					{
-						type: 'Spinach',
-						dv: '24%',
-						mg: 839,
-					},
-					{
-						type: 'Sweet Potato',
-						dv: '24%',
-						mg: 855,
-					},
-					{
-						type: 'Wild-Caught Salmon',
-						dv: '22%',
-						mg: 772,
-					},
-					{
-						type: 'Dried Apricots',
-						dv: '22%',
-						mg: 756,
-					},
-					{
-						type: 'Pomegranate',
-						dv: '19%',
-						mg: 667,
-					},
-					{
-						type: 'Coconut Water',
-						dv: '17%',
-						mg: 600,
-					},
-					{
-						type: 'White Beans',
-						dv: '15%',
-						mg: 502,
-					},
-					{
-						type: 'Banana',
-						dv: '14%',
-						mg: 487,
-					},
-				]
-			},
-			{
-				name: 'Fiber',
-				food: [
-					{
-						type: 'Bran',
-						dv: '240%',
-						g: 60,
-					},
-					{
-						type: 'Cauliflower',
-						dv: '9%',
-						g: 2,
-					},
-					{
-						type: 'Cabbage',
-						dv: '8%',
-						g: 2,
-					},
-					{
-						type: 'Berries',
-						dv: '32%',
-						g: 8,
-					},
-					{
-						type: 'Leafy Greens',
-						dv: '4%',
-						g: 1,
-					},
-					{
-						type: 'Celery',
-						dv: '6%',
-						g: 2,
-					},
-					{
-						type: 'Squash',
-						dv: '19%',
-						g: 5,
-					},
-					{
-						type: 'Kidney Beans',
-						dv: '46%',
-						g: 11,
-					},
-					{
-						type: 'Mushrooms',
-						dv: '14%',
-						g: 3,
-					},
-					{
-						type: 'Oranges',
-						dv: '18%',
-						g: 4,
-					},
 
-				]
-			},
-			{
-				name: 'Protein',
-				food: [
-					{
-						type: 'Chicken Breast',
-						dv: '60%',
-						g: 30,
-					},
-					{
-						type: 'Pork Chop',
-						dv: '54%',
-						g: 27,
-					},
-					{
-						type: 'Ground Beef',
-						dv: '52%',
-						g: 26,
-					},
-					{
-						type: 'Swiss Cheese',
-						dv: '50%',
-						g: 25,
-					},
-					{
-						type: 'Lamb Lion',
-						dv: '50%',
-						g: 25,
-					},
-					{
-						type: 'Salmon',
-						dv: '48%',
-						g: 24,
-					},
-					{
-						type: 'Ham',
-						dv: '46%',
-						g: 23,
-					},
-					{
-						type: 'Black Beans',
-						dv: '44%',
-						g: 22,
-					},
-					{
-						type: 'Almonds',
-						dv: '42%',
-						g: 21,
-					},
-					{
-						type: 'Pumpkin Seeds',
-						dv: '38%',
-						g: 19,
-					},
-				]
-			}
-		]
-	},
-	methods: {
-		thisFunction: function(e){
-			for (var i = 0; i < this.vitamins.length; i++) {
 
-				if (e.currentTarget.innerHTML == this.vitamins[i].name) {
+var SmartCart = (function(){
+	var shared = {};
 
-					for (var r = 0; r < this.vitamins[i].food.length; r++) {
-						console.log(this.vitamins[i].food[r].type);
-					}
-				}
-			}
+	const vitaminDescription = [
+		{
+			name: 'Calcium',
+			des: 'A mineral found mainly in the hard part of bones, where it is stored. Calcium is added to bone by cells called osteoblasts and removed from bone by cells called osteoclasts. Calcium is essential for healthy bones and is also important for muscle contraction, heart action, and normal blood clotting.'
 		},
+		{
+			name: 'Potassium',
+			des: 'Potassium is a mineral that, among other things, helps muscles contract, helps regulate fluids and mineral balance in and out of body cells, and helps maintain normal blood pressure by blunting the effect of sodium.'
+		},
+		{
+			name: 'Fiber',
+			des: 'Fiber: The parts of fruits and vegetables that cannot be digested. Fiber is of vital importance to digestion; it helps the body move food through the digestive tract, reduces serum cholesterol, and contributes to disease protection. Also known as bulk and roughage.'
+		},
+		{
+			name: 'Magnesium',
+			des: 'Magnesium is needed for more than 300 biochemical reactions in the body. It helps to maintain normal nerve and muscle function, supports a healthy immune system, keeps the heart beat steady, and helps bones remain strong. It also helps regulate blood glucose levels and aid in the production of energy and protein.'
+		},
+		{
+			name: 'Protein',
+			des: 'Protein: One of the three nutrients used as energy sources (calories) by the body. Proteins are essential components of the muscle, skin, and bones. Proteins and carbohydrates each provide 4 calories of energy per gram, whereas fats provide 9 calories per gram.'
+		},
+		{
+			name: 'Iron',
+			des: 'Iron: An essential mineral. Iron is necessary for the transport of oxygen (via hemoglobin in red blood cells) and for oxidation by cells (via cytochrome). Deficiency of iron is a common cause of anemia. Food sources of iron include meat, poultry, eggs, vegetables and cereals (especially those fortified with iron).'
+		},
+		{
+			name: 'Vitamin A',
+			des: 'Vitamin A is a fat-soluble vitamin which helps maintain normal reproduction, vision and immune function. It comes in a number of forms (as retinol, retinal, retinoic acid or retinyl ester). ... One RE is defined as the biological activity associated with 1 µg of all-trans retinol.'
+		},
+		{
+			name: 'Vitamin C',
+			des: 'Vitamin C is required for growth and repair of tissues in all parts of the body. It is essential for life and in healing wounds and maintaining the integrity of gums, bones, and teeth. Vitamin C is a water-soluble vitamin. Water-soluble nutrients are not stored in the body.'
+		},
+		{
+			name: 'Vitamin E',
+			des: 'Vitamin E is a fat-soluble nutrient found in many foods. In the body, it acts as an antioxidant, helping to protect cells from the damage caused by free radicals.'
+		}
+	];
 
-		searchVitamin: function(e) {
-			let searchInput = document.querySelector('.search-input').value;
-			console.log(searchInput);
-			
-			for (var i = 0; i < this.vitamins.length; i++) {
-				if (searchInput == this.vitamins[i].name) {
-					for (var r = 0; r < this.vitamins[i].food.length; r++) {
-						console.log(this.vitamins[i].food[r].type);
-						var ul = document.querySelector('.ul');
-						var listItem = document.createElement('li');
-						listItem.innerHTML = this.vitamins[i].food[r].type;
-						ul.appendChild(listItem);
+	function setupListeners() {
+		var submitButton = document.querySelector('.list-search-button');
+		var recipeButton = document.querySelector('.recipe-seach-button');
+
+		var protein = document.querySelector('.protein');
+		var calcium = document.querySelector('.calcium');
+		var magnesium = document.querySelector('.magnesium');
+		var vitaminA = document.querySelector('.vitamin-a');
+		var vitaminC = document.querySelector('.vitamin-c');
+		var vitaminE = document.querySelector('.vitamin-e');
+		var iron = document.querySelector('.iron');
+		var fiber = document.querySelector('.fiber');
+		var potassium = document.querySelector('.potassium');
+
+		protein.addEventListener('click', toggleVitaminCheck);
+		calcium.addEventListener('click', toggleVitaminCheck);
+		vitaminA.addEventListener('click', toggleVitaminCheck);
+		vitaminC.addEventListener('click', toggleVitaminCheck);
+		vitaminE.addEventListener('click', toggleVitaminCheck);
+		iron.addEventListener('click', toggleVitaminCheck);
+		fiber.addEventListener('click', toggleVitaminCheck);
+		magnesium.addEventListener('click', toggleVitaminCheck);
+		potassium.addEventListener('click', toggleVitaminCheck);
+
+
+		submitButton.addEventListener('click', searchVitamins);
+		recipeButton.addEventListener('click', searchRecipies);
+	}
+
+	function toggleVitaminCheck(e) {
+		e.preventDefault();
+		e.currentTarget.classList.toggle('active');
+		console.log(e.currentTarget.dataset.id);
+	}
+
+	// function replacer(data) {
+	// 	let newListItemName = str.replace(,.*$, '');
+	// }
+
+	function populateList(data) {
+		var singleListItem = document.querySelector('.single-list-item');
+		var listItemName = document.querySelector('.single-list-item__name');
+		var listItemDV = document.querySelector('.single-list-item__dv');
+		var list = document.querySelector('.list');
+		var vitaminButtons = document.querySelectorAll('.vitamin-button');
+		var myNeedsTitle = document.querySelector('.my-needs-title');
+		var myNeedsDes = document.querySelector('.my-needs-des');
+		var selectedVitaminName = document.querySelector('.selected-vitamin__name');
+
+		for (var i = 0; i < vitaminButtons.length; i++) {
+			if (vitaminButtons[i].classList.contains('active')) {
+				myNeedsTitle.innerHTML = vitaminButtons[i].dataset.value;
+				selectedVitaminName.innerHTML = vitaminButtons[i].dataset.value;
+
+				for (var r = 0; r < vitaminDescription.length; r++) {
+					if (vitaminDescription[r].name == vitaminButtons[i].dataset.value) {
+						myNeedsDes.innerHTML = vitaminDescription[r].des;
 					}
 				}
 			}
 		}
+
+
+		for (var i = 0; i < data.report.foods.length; i++) {
+
+			var dataSHIT = data.report.foods[i].nutrients[0];
+
+			var listName = data.report.foods[i].name;
+			var splitItemName = listName.split(',', 1);
+			console.log(splitItemName);
+
+			var createNewListItem = document.createElement('div');
+			createNewListItem.classList.add('single-list-item');
+
+			var createNewListItemName = document.createElement('h4');
+			createNewListItemName.classList.add('single-list-item__name');
+			createNewListItemName.innerHTML = splitItemName[0];
+
+			var createNewListItemDV = document.createElement('h4');
+			createNewListItemDV.classList.add('single-list-item__dv');
+			createNewListItemDV.innerHTML = dataSHIT.value + ' ' + dataSHIT.unit;
+
+			var createNewListItemCheckbox = document.createElement('input');
+			createNewListItemCheckbox.type = "checkbox";
+			createNewListItemCheckbox.classList.add('single-list-item__checkbox');
+			
+			createNewListItem.appendChild(createNewListItemName);
+			createNewListItem.appendChild(createNewListItemDV);
+			createNewListItem.appendChild(createNewListItemCheckbox);
+			list.appendChild(createNewListItem);
+
+			// console.log(listItemName.text);
+		}
 	}
-})
 
 
+	function searchVitamins(e) {
+		e.preventDefault();
 
+		var vitaminButtons = document.querySelectorAll('.vitamin-button');
 
+		let url = "https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=UagOcIiD2fvLJeWTT2wdjowabdjWJb3DX6GE86ZR&sort=c&max=50";
+
+		for (var i = 0; i < vitaminButtons.length; i++) {
+			if (vitaminButtons[i].classList.contains('active')) {
+				url += '&nutrients=' + vitaminButtons[i].dataset.id;
+			}
+		}
+		console.log(url);
+		fetch(url)
+		  .then(
+		    function(response) {
+				if (response.status !== 200) {
+				console.log('Looks like there was a problem. Status Code: ' +
+				  response.status);
+				return;
+				}
+
+				response.json().then(function(data) {
+				console.log(data);
+				populateList(data);
+				});
+		    }
+		  )
+		  .catch(function(err) {
+		    console.log('Fetch Error :-S', err);
+		  });
+	}
+
+	function searchRecipies(e) {
+		e.preventDefault();
+
+		var vitaminButtons = document.querySelectorAll('.vitamin-button');
+
+		let url = "https://api.edamam.com/search/?app_id=f2bbfd2e&app_key=688f5e309e9e2dca6fea9bf6d5529074";
+
+		for (var i = 0; i < vitaminButtons.length; i++) {
+			if (vitaminButtons[i].classList.contains('active')) {
+				url += '&nutrients[' + vitaminButtons[i].dataset.range + ']=30';
+			}
+		}
+
+		let header = new Headers({
+		    'Access-Control-Allow-Origin':'*',
+		    'Content-Type': 'multipart/form-data'
+		});
+		
+		let sentData={
+		    method: 'GET',
+		    mode: 'cors',
+		    header: header,
+		};
+
+		console.log(url);
+		fetch("http://circuslabs.net/~taylin.large/Q6/Teams/SmartCart/recipe-proxy.php?url=" + url)
+		  .then(
+		    function(response) {
+				if (response.status !== 200) {
+				console.log('Looks like there was a problem. Status Code: ' +
+				  response.status);
+				return;
+				}
+
+				response.json().then(function(data) {
+				console.log(data);
+				});
+		    }
+		  )
+		  .catch(function(err) {
+		    console.log('Fetch Error :-S', err);
+		});
+
+	}
+
+	
+
+	function init(){
+		setupListeners();
+	}
+
+	shared.init = init;
+
+	return shared;
+
+}());
+
+SmartCart.init();
 
 
 

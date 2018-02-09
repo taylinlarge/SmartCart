@@ -1,0 +1,366 @@
+@import 'reset';
+
+
+$font: 'Montserrat';
+
+$prim-dark-orange: #f89823;
+$prim-light-orange: #fbcc9a;
+$prim-light-green: #d1e9d0;
+
+
+$sec-gray: #fff3e4;
+$sec-dark-green: #a4d5a5;
+$sec-dark-orange: #f9b268;
+
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+
+#content {
+	max-width: 425px;
+	margin: 0 auto;
+	background-image: url(../img/wood-background.jpg);
+	background-size: 200%;
+	background-position: center;
+	overflow: hidden;
+
+	.header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-around;
+		height: 245px;
+		background-color: $prim-dark-orange;
+
+		.logo {
+			width: 30%;
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.search {
+			width: 50%;
+			height: 20px;
+
+			input {
+				width: 100%;
+				height: 100%;
+				border-radius: 50px;
+				border-width: 0px;
+				text-align: center;
+
+				&:focus {
+					outline: none;
+				}
+			}
+
+			.fa-search {
+				position: relative;
+				top: -18px;
+				left: 87%;
+				transform: rotateY(180deg);
+				color: #f89823;
+				background-color: $sec-gray;
+				border-radius: 50%;
+				padding: 3px;
+			}
+		}
+
+	}
+	.saved-searches {
+		width: 100%;
+		height: 80px;
+		background-color: $prim-light-orange;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		h3 {
+			font-family: $font;
+			color: white;
+			font-size: 1.2em;
+		}
+	}
+
+	.saved-searches-list {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100px;
+		background-image: url(../img/wood-background.jpg);
+		background-size: 400%;
+		background-position: center center;
+
+		h3 {
+			font-family: $font;
+			font-size: 1em;
+		}
+	}
+
+	.nutrient-selection {
+		width: 100%;
+		background-image: url(../img/wood-background.jpg);
+		background-size: 200%;
+		background-position: center;
+
+		.nutrient-selection__title {
+			height: 80px;
+			width: 100%;
+			background-color: $prim-light-orange;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			h3 {
+				font-family: $font;
+				font-size: 1.2em;
+				color: white;
+			}
+		}
+
+		.nutrient-selection__buttons {
+			padding: 20px;
+
+			p {
+				font-family: $font;
+				font-size: 1em;
+				margin-bottom: 20px;
+			}
+
+			.nutrient-selection__buttons-container {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+
+				.vitamin-button {
+					display: flex;
+					justify-content: center;
+					align-items: flex-end;
+					width: 100px;
+					height: 100px;
+					margin-bottom: 30px;
+					background-position: center;
+					background-size: contain;
+					background-repeat: no-repeat;
+
+					&.active {
+						border: 2px solid $prim-dark-orange;
+					}
+
+					p {
+						margin-bottom: 5px;
+						text-transform: uppercase;
+						font-weight: 700;
+						font-size: 0.8em;
+					}
+				}
+
+				.calcium {
+					background-image: url(../img/menuicons-01.png);
+				}
+
+				.potassium {
+					background-image: url(../img/menuicons-02.png);
+				}
+
+				.fiber {
+					background-image: url(../img/menuicons-03.png);
+				}
+
+				.magnesium {
+					background-image: url(../img/menuicons-04.png);
+				}
+
+				.protein {
+					background-image: url(../img/menuicons-05.png);
+				}
+
+				.iron {
+					background-image: url(../img/menuicons-06.png);
+				}
+
+				.vitamin-a {
+					background-image: url(../img/menuicons-07.png);
+				}
+
+				.vitamin-c {
+					background-image: url(../img/menuicons-08.png);
+				}
+
+				.vitamin-e {
+					background-image: url(../img/menuicons-09.png);
+				}
+			}
+		}
+	}
+
+	.search-buttons {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		width: 100%;
+		padding-bottom: 50px;
+
+		.list-search-button, .recipe-seach-button {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: linear-gradient($prim-light-green, $sec-dark-green);
+			width: 70%;
+			height: 70px;
+			border-radius: 50px;
+			cursor: pointer;
+
+			p {
+				font-family: $font;
+				font-weight: 700;
+				font-size: 1.4em;
+			}
+
+			&:first-child {
+				margin-bottom: 20px;
+			}
+		}
+	}
+
+	.spices-img {
+		position: absolute;
+		left: 32%;
+		bottom: -160%;
+		width: 7%;
+		transform: rotate(-40deg);
+		
+
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.populated-list-module {
+
+		.my-needs {
+			width: 100%;
+			height: 80px;
+			background-color: $prim-light-orange;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			h3 {
+				font-family: $font;
+				color: white;
+				font-size: 1.2em;
+			}
+		}
+
+		.my-needs-container {
+			width: 100%;
+			height: 100px;
+			background-image: url(../img/wood-background.jpg);
+			background-size: 400%;
+			background-position: center center;
+			padding: 15px 20px;
+
+			h3 {
+				font-family: $font;
+				font-size: 1em;
+				font-weight: 700;
+				margin-bottom: 5px;
+			}
+
+			p {
+				font-family: $font;
+				font-size: 0.7em;
+			}
+		}
+
+		.selected-vitamin-container {
+			width: 100%;
+			background-image: url(../img/wood-background.jpg);
+			background-size: 200%;
+			background-position: center;
+
+			.selected-vitamin-container__title {
+				width: 100%;
+				height: 80px;
+				background-color: $prim-light-orange;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.selected-vitamin__name {
+					font-family: $font;
+					color: white;
+					font-size: 1.2em;
+				}
+			}
+
+			.vitamin-legend {
+				background-color: $sec-gray;
+				width: 100%;
+				height: 40px;
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+
+				p {
+					font-family: $font;
+					font-size: 0.6em;
+				}
+
+				.add-to-list {
+					margin-left: 25%;
+					margin-right: 8%;
+				}
+			}
+
+			.list {
+				width: 100%;
+
+				.single-list-item {
+					display: flex;
+					// justify-content: space-around;
+					align-items: center;
+					width: 100%;
+					height: 40px;
+					background-color: $sec-dark-orange;
+					border-bottom: 1px solid black;
+
+					.single-list-item__name, .single-list-item__dv {
+						font-family: $font;
+						font-size: 0.9em;
+					}
+
+					.single-list-item__name {
+						padding-left: 20px;
+					}
+
+					.single-list-item__dv {
+						position: absolute;
+						right: 47%;
+					}
+
+					.single-list-item__checkbox {
+						position: absolute;
+						right: 38%;
+					}
+				}
+			}
+		}
+	}
+}
+
