@@ -1,30 +1,9 @@
 "use strict";
 
-/*
-
-	vitamin list:
-		calcium, vitamin c, potassium, fiber, protein
-
-		scratch food items. reciepes shown from vitamin search.
-
-	
-	flow:
-		choosing vitamins:
-			food list:
-				show foods, DV%, check boxes to add to cart, 
-			recipes:
-				show recipes with vitamin chosen in them. show DV%, 
-
-
-
-	Create seperate recipe array
-*/
-
-
-
-
 var SmartCart = (function(){
 	var shared = {};
+	
+	var data;
 
 	const vitaminDescription = [
 		{
@@ -100,9 +79,16 @@ var SmartCart = (function(){
 		console.log(e.currentTarget.dataset.id);
 	}
 
-	// function replacer(data) {
-	// 	let newListItemName = str.replace(,.*$, '');
-	// }
+	function removeList() {
+		var list = document.querySelector('.list');
+		var singleListItem = document.querySelectorAll('.single-list-item');
+
+		if (singleListItem.length) {
+			for (var i = 0; i < singleListItem.length; i++) {
+				singleListItem[i].parentNode.removeChild(singleListItem[i]);
+			}
+		}
+	}
 
 	function populateList(data) {
 		var singleListItem = document.querySelector('.single-list-item');
@@ -127,21 +113,28 @@ var SmartCart = (function(){
 			}
 		}
 
-
 		for (var i = 0; i < data.report.foods.length; i++) {
+
 
 			var dataSHIT = data.report.foods[i].nutrients[0];
 
 			var listName = data.report.foods[i].name;
-			var splitItemName = listName.split(',', 1);
-			console.log(splitItemName);
+			var splitItemName = listName.split(',', 2);
+
+			console.log(splitItemName[0]);
+
+			if (splitItemName[0] === "Restaurant" || 'OLIVE GARDEN' || "ON THE BOARDER" || "CARRABBA'S ITALIAN GRILL" || "CAMPBELL'S") {
+				console.log('worked');
+			}
+
+			splitItemName += " ...";
 
 			var createNewListItem = document.createElement('div');
 			createNewListItem.classList.add('single-list-item');
 
 			var createNewListItemName = document.createElement('h4');
 			createNewListItemName.classList.add('single-list-item__name');
-			createNewListItemName.innerHTML = splitItemName[0];
+			createNewListItemName.innerHTML = splitItemName;
 
 			var createNewListItemDV = document.createElement('h4');
 			createNewListItemDV.classList.add('single-list-item__dv');
@@ -160,6 +153,12 @@ var SmartCart = (function(){
 		}
 	}
 
+	function addToNewArray(data) {
+		for (var i = 0; i < data.report.foods.length; i++) {
+			newNutrientArray.push( data.report.foods[i] );
+		}
+
+	}
 
 	function searchVitamins(e) {
 		e.preventDefault();
@@ -185,6 +184,9 @@ var SmartCart = (function(){
 
 				response.json().then(function(data) {
 				console.log(data);
+				data = data;
+				removeList();
+				// addToNewArray(data);
 				populateList(data);
 				});
 		    }
@@ -243,6 +245,7 @@ var SmartCart = (function(){
 
 	function init(){
 		setupListeners();
+		var newNutrientArray;
 	}
 
 	shared.init = init;
@@ -252,9 +255,4 @@ var SmartCart = (function(){
 }());
 
 SmartCart.init();
-
-
-
-
-
 
