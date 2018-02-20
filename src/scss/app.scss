@@ -346,6 +346,7 @@ html, body {
 					.single-list-item-container {
 						display: flex;
 						align-items: flex-start;
+						position: relative;
 
 						.single-list-item__name, .single-list-item__dv {
 							font-family: $font;
@@ -363,7 +364,11 @@ html, body {
 
 						.single-list-item__dv {
 							position: absolute;
-							right: 20%;
+							transform: translate(90%, -50%);
+							width: 80px;
+							text-align: right;
+							left: 50%;
+							top: 50%;
 						}
 
 						.single-list-item__checkbox {
@@ -399,7 +404,9 @@ html, body {
 					}
 
 					.expanded-info-window__nurtients {
-						.expanded-info-window-list {
+						text-align: right;
+
+						.expanded-info-window__nurtients-list {
 							text-align: center;
 						}
 					}

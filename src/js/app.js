@@ -122,7 +122,7 @@ var SmartCart = (function(){
 			let dataPrefix = data.report.foods[i].nutrients[0];
 
 			let listName = data.report.foods[i].name;
-			let splitItemName = listName.split(',', 2);
+			let splitItemName = listName.split(',');
 
 
 			if (splitItemName[0] == "Restaurant" || splitItemName[0] == 'OLIVE GARDEN' || splitItemName[0] == "ON THE BOARDER" || splitItemName[0] == "CARRABBA'S ITALIAN GRILL" || splitItemName[0] == "CAMPBELL'S") {
@@ -176,8 +176,8 @@ var SmartCart = (function(){
 		expandedInfoWindow.dataset.id = i;
 		console.log(expandedInfoWindow.dataset.id);
 
-		expandedInfoWindowNurientsList.innerHTML = dataPrefix.nutrient + ': ' + dataPrefix.value;
-		expandedInfoWindowMeasurement.innerHTML = 'Measurement: ' + data.report.foods[i].measure;
+		expandedInfoWindowNurientsList.innerHTML = dataPrefix.nutrient + ': ' + `<br />` + dataPrefix.value;
+		expandedInfoWindowMeasurement.innerHTML = 'Measurement: ' + `<br />` + data.report.foods[i].measure;
 		expandedInfoWindowName.innerHTML = listName;
 
 		expandedInfoWindowNurients.appendChild(expandedInfoWindowNurientsList);
