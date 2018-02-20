@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 $method = $_SERVER['REQUEST_METHOD'];
   if ($_GET && $_GET['url']) {
     $headers = getallheaders();

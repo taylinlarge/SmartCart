@@ -3,6 +3,7 @@
 var SmartCart = (function(){
 	var shared = {};
 	
+	var blackList = [];
 	var data;
 
 	const vitaminDescription = [
@@ -84,7 +85,7 @@ var SmartCart = (function(){
 		var singleListItem = document.querySelectorAll('.single-list-item');
 
 		if (singleListItem.length) {
-			for (var i = 0; i < singleListItem.length; i++) {
+			for (let i = 0; i < singleListItem.length; i++) {
 				singleListItem[i].parentNode.removeChild(singleListItem[i]);
 			}
 		}
@@ -100,12 +101,14 @@ var SmartCart = (function(){
 		var myNeedsDes = document.querySelector('.my-needs-des');
 		var selectedVitaminName = document.querySelector('.selected-vitamin__name');
 
-		for (var i = 0; i < vitaminButtons.length; i++) {
+		for (let i = 0; i < vitaminButtons.length; i++) {
 			if (vitaminButtons[i].classList.contains('active')) {
 				myNeedsTitle.innerHTML = vitaminButtons[i].dataset.value;
+				
 				selectedVitaminName.innerHTML = vitaminButtons[i].dataset.value;
+				console.log(vitaminButtons[i].dataset.value);
 
-				for (var r = 0; r < vitaminDescription.length; r++) {
+				for (let r = 0; r < vitaminDescription.length; r++) {
 					if (vitaminDescription[r].name == vitaminButtons[i].dataset.value) {
 						myNeedsDes.innerHTML = vitaminDescription[r].des;
 					}
@@ -113,24 +116,25 @@ var SmartCart = (function(){
 			}
 		}
 
-		for (var i = 0; i < data.report.foods.length; i++) {
+		for (let i = 0; i < data.report.foods.length; i++) {
 
 
-			var dataSHIT = data.report.foods[i].nutrients[0];
+			let dataPrefix = data.report.foods[i].nutrients[0];
 
-			var listName = data.report.foods[i].name;
-			var splitItemName = listName.split(',', 2);
+			let listName = data.report.foods[i].name;
+			let splitItemName = listName.split(',', 2);
 
-			console.log(splitItemName[0]);
 
-			if (splitItemName[0] === "Restaurant" || 'OLIVE GARDEN' || "ON THE BOARDER" || "CARRABBA'S ITALIAN GRILL" || "CAMPBELL'S") {
-				console.log('worked');
+			if (splitItemName[0] == "Restaurant" || splitItemName[0] == 'OLIVE GARDEN' || splitItemName[0] == "ON THE BOARDER" || splitItemName[0] == "CARRABBA'S ITALIAN GRILL" || splitItemName[0] == "CAMPBELL'S") {
+				blackList.push(data.report.foods[i]);
 			}
-
-			splitItemName += " ...";
 
 			var createNewListItem = document.createElement('div');
 			createNewListItem.classList.add('single-list-item');
+			createNewListItem.dataset.id = i;
+
+			var createNewListItemContainer = document.createElement('div');
+			createNewListItemContainer.classList.add('single-list-item-container');
 
 			var createNewListItemName = document.createElement('h4');
 			createNewListItemName.classList.add('single-list-item__name');
@@ -138,23 +142,70 @@ var SmartCart = (function(){
 
 			var createNewListItemDV = document.createElement('h4');
 			createNewListItemDV.classList.add('single-list-item__dv');
-			createNewListItemDV.innerHTML = dataSHIT.value + ' ' + dataSHIT.unit;
+			createNewListItemDV.innerHTML = dataPrefix.value + ' ' + dataPrefix.unit;
 
 			var createNewListItemCheckbox = document.createElement('input');
 			createNewListItemCheckbox.type = "checkbox";
 			createNewListItemCheckbox.classList.add('single-list-item__checkbox');
-			
-			createNewListItem.appendChild(createNewListItemName);
-			createNewListItem.appendChild(createNewListItemDV);
-			createNewListItem.appendChild(createNewListItemCheckbox);
+
+			createNewListItemContainer.appendChild(createNewListItemName);
+			createNewListItemContainer.appendChild(createNewListItemDV);
+			createNewListItemContainer.appendChild(createNewListItemCheckbox)
+			createNewListItem.appendChild(createNewListItemContainer);
 			list.appendChild(createNewListItem);
 
-			// console.log(listItemName.text);
+			expandedWindowCreator(data, createNewListItem, listName, dataPrefix, i);
+			expandedWindowListener(createNewListItem);
+			
 		}
 	}
 
+	function expandedWindowCreator (data, element, listName, dataPrefix, i) {
+		var expandedInfoWindow = document.createElement('div');
+		var expandedInfoWindowName = document.createElement('h3');
+		var expandedInfoWindowMeasurement = document.createElement('p');
+		var expandedInfoWindowNurients = document.createElement('div');
+		var expandedInfoWindowNurientsList = document.createElement('p');
+
+		expandedInfoWindowNurientsList.classList.add('expanded-info-window__nutrients-list');
+		expandedInfoWindowNurients.classList.add('expanded-info-window__nurtients');
+		expandedInfoWindowMeasurement.classList.add('expanded-info-window__measurement');
+		expandedInfoWindowName.classList.add('expanded-info-window__name');
+		expandedInfoWindow.classList.add('expanded-info-window');
+
+		expandedInfoWindow.dataset.id = i;
+		console.log(expandedInfoWindow.dataset.id);
+
+		expandedInfoWindowNurientsList.innerHTML = dataPrefix.nutrient + ': ' + dataPrefix.value;
+		expandedInfoWindowMeasurement.innerHTML = 'Measurement: ' + data.report.foods[i].measure;
+		expandedInfoWindowName.innerHTML = listName;
+
+		expandedInfoWindowNurients.appendChild(expandedInfoWindowNurientsList);
+		expandedInfoWindow.appendChild(expandedInfoWindowName);
+		expandedInfoWindow.appendChild(expandedInfoWindowMeasurement);
+		expandedInfoWindow.appendChild(expandedInfoWindowNurients);
+		console.log(element);
+		if (element.dataset.id == expandedInfoWindow.dataset.id) {
+			element.insertAdjacentElement('afterend', expandedInfoWindow);
+		}
+	}
+
+	function expandedWindowListener(element) {
+		element.addEventListener('click', function() {
+			var expandedInfoWindow = document.querySelectorAll('.expanded-info-window');
+
+			for (let i = 0; i < expandedInfoWindow.length; i++) {
+				
+				if (element.dataset.id == expandedInfoWindow[i].dataset.id) {
+					expandedInfoWindow[i].classList.toggle('active');
+					console.log('active');
+				}
+			}
+		});
+	}
+
 	function addToNewArray(data) {
-		for (var i = 0; i < data.report.foods.length; i++) {
+		for (let i = 0; i < data.report.foods.length; i++) {
 			newNutrientArray.push( data.report.foods[i] );
 		}
 
@@ -165,14 +216,13 @@ var SmartCart = (function(){
 
 		var vitaminButtons = document.querySelectorAll('.vitamin-button');
 
-		let url = "https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=UagOcIiD2fvLJeWTT2wdjowabdjWJb3DX6GE86ZR&sort=c&max=50";
+		let url = "https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=UagOcIiD2fvLJeWTT2wdjowabdjWJb3DX6GE86ZR&sort=c&max=20";
 
-		for (var i = 0; i < vitaminButtons.length; i++) {
+		for (let i = 0; i < vitaminButtons.length; i++) {
 			if (vitaminButtons[i].classList.contains('active')) {
 				url += '&nutrients=' + vitaminButtons[i].dataset.id;
 			}
 		}
-		console.log(url);
 		fetch(url)
 		  .then(
 		    function(response) {
@@ -221,7 +271,7 @@ var SmartCart = (function(){
 		};
 
 		console.log(url);
-		fetch("http://circuslabs.net/~taylin.large/Q6/Teams/SmartCart/recipe-proxy.php?url=" + url)
+		fetch("http://circuslabs.net/~taylin.large/Q6/Teams/php-proxy.php?url=" + encodeURIComponent(url))
 		  .then(
 		    function(response) {
 				if (response.status !== 200) {
@@ -248,6 +298,8 @@ var SmartCart = (function(){
 		var newNutrientArray;
 	}
 
+	shared.data = data;
+	shared.blackList = blackList;
 	shared.init = init;
 
 	return shared;

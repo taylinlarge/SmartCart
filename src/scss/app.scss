@@ -36,7 +36,7 @@ html, body {
 		flex-direction: column;
 		align-items: center;
 		justify-content: space-around;
-		height: 245px;
+		height: 215px;
 		background-color: $prim-dark-orange;
 
 		.logo {
@@ -50,7 +50,7 @@ html, body {
 
 		.search {
 			width: 50%;
-			height: 20px;
+			height: 40px;
 
 			input {
 				width: 100%;
@@ -66,13 +66,14 @@ html, body {
 
 			.fa-search {
 				position: relative;
-				top: -18px;
-				left: 87%;
+				top: -33px;
+				left: 83%;
 				transform: rotateY(180deg);
 				color: #f89823;
 				background-color: $sec-gray;
 				border-radius: 50%;
 				padding: 3px;
+				font-size: 1.8em;
 			}
 		}
 
@@ -323,40 +324,84 @@ html, body {
 				}
 
 				.add-to-list {
-					margin-left: 25%;
-					margin-right: 8%;
+					margin-left: 9%;
+					margin-right: 3%;
 				}
 			}
 
 			.list {
 				width: 100%;
+				font-family: $font;
+
 
 				.single-list-item {
 					display: flex;
-					// justify-content: space-around;
-					align-items: center;
+					flex-direction: column;
+					justify-content: center;
 					width: 100%;
 					height: 40px;
 					background-color: $sec-dark-orange;
 					border-bottom: 1px solid black;
 
-					.single-list-item__name, .single-list-item__dv {
-						font-family: $font;
-						font-size: 0.9em;
+					.single-list-item-container {
+						display: flex;
+						align-items: flex-start;
+
+						.single-list-item__name, .single-list-item__dv {
+							font-family: $font;
+							font-size: 0.9em;
+
+						}
+
+						.single-list-item__name {
+							padding-left: 20px;
+							white-space: nowrap;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							max-width: 250px;
+						}
+
+						.single-list-item__dv {
+							position: absolute;
+							right: 20%;
+						}
+
+						.single-list-item__checkbox {
+							position: absolute;
+							right: 5%;
+						}
+					}
+					
+				}
+
+				.expanded-info-window {
+					display: flex;;
+					align-items: center;
+					justify-content: flex-start;
+					width: 100%;
+					height: 0px;
+					overflow: hidden;
+					background-color: $sec-gray;
+					font-size: 0.8em;
+					padding: 0px 20px;
+					transition: all 0.5s ease-in-out;
+
+					&.active {
+						height: 100px;
 					}
 
-					.single-list-item__name {
-						padding-left: 20px;
+					.expanded-info-window__name {
+						max-width: 250px;
 					}
 
-					.single-list-item__dv {
-						position: absolute;
-						right: 47%;
+					.expanded-info-window__measurement {
+						text-align: center;
 					}
 
-					.single-list-item__checkbox {
-						position: absolute;
-						right: 38%;
+					.expanded-info-window__nurtients {
+						.expanded-info-window-list {
+							text-align: center;
+						}
 					}
 				}
 			}
