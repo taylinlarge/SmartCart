@@ -111,6 +111,7 @@ html, body {
 	}
 
 	.nutrient-selection {
+		position: relative;
 		width: 100%;
 		background-image: url(../img/wood-background.jpg);
 		background-size: 200%;
@@ -128,6 +129,24 @@ html, body {
 				font-family: $font;
 				font-size: 1.2em;
 				color: white;
+			}
+		}
+
+		.ajax-loader {
+			display: none;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-image: url(../img/ajax-loader.gif);
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			height: 42px;
+			width: 42px;
+
+			&.active {
+				display: block;
 			}
 		}
 
@@ -215,7 +234,7 @@ html, body {
 		width: 100%;
 		padding-bottom: 50px;
 
-		.list-search-button, .recipe-seach-button {
+		.list-search-button, .recipe-seach-button, .add-to-cart-button {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -270,7 +289,6 @@ html, body {
 
 		.my-needs-container {
 			width: 100%;
-			height: 100px;
 			background-image: url(../img/wood-background.jpg);
 			background-size: 400%;
 			background-position: center center;
@@ -286,6 +304,7 @@ html, body {
 			p {
 				font-family: $font;
 				font-size: 0.7em;
+				margin-bottom: 15px;
 			}
 		}
 
@@ -411,6 +430,24 @@ html, body {
 						}
 					}
 				}
+			}
+		}
+		.add-to-list-button {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: linear-gradient($prim-light-green, $sec-dark-green);
+			width: 70%;
+			height: 70px;
+			border-radius: 50px;
+			cursor: pointer;
+			margin: 25px auto;
+			
+
+			p {
+				font-family: $font;
+				font-weight: 700;
+				font-size: 1.4em;
 			}
 		}
 	}

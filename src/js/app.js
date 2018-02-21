@@ -1,10 +1,11 @@
 "use strict";
 
 var SmartCart = (function(){
-	var shared = {};
+	let shared = {};
 	
-	var blackList = [];
-	var data;
+	let blackList = [];
+	let todoList = [];
+	let data;
 
 	const vitaminDescription = [
 		{
@@ -48,6 +49,8 @@ var SmartCart = (function(){
 	function setupListeners() {
 		var submitButton = document.querySelector('.list-search-button');
 		var recipeButton = document.querySelector('.recipe-seach-button');
+		var addToListButton = document.querySelector('.add-to-list-button');
+		var checkBoxes = document.querySelectorAll('.single-list-item__checkbox');
 
 		var protein = document.querySelector('.protein');
 		var calcium = document.querySelector('.calcium');
@@ -69,9 +72,9 @@ var SmartCart = (function(){
 		magnesium.addEventListener('click', toggleVitaminCheck);
 		potassium.addEventListener('click', toggleVitaminCheck);
 
-
 		submitButton.addEventListener('click', searchVitamins);
 		recipeButton.addEventListener('click', searchRecipies);
+		addToListButton.addEventListener('click', addToList);
 	}
 
 	function toggleVitaminCheck(e) {
@@ -81,41 +84,59 @@ var SmartCart = (function(){
 	}
 
 	function removeList() {
-		var list = document.querySelector('.list');
 		var singleListItem = document.querySelectorAll('.single-list-item');
+		var expandedInfoWindow = document.querySelectorAll('.expanded-info-window');
 
 		if (singleListItem.length) {
 			for (let i = 0; i < singleListItem.length; i++) {
 				singleListItem[i].parentNode.removeChild(singleListItem[i]);
 			}
 		}
+
+		if (expandedInfoWindow.length) {
+			for (let i = 0; i < expandedInfoWindow.length; i++) {
+				expandedInfoWindow[i].parentNode.removeChild(expandedInfoWindow[i]);
+			}
+		}
 	}
 
-	function populateList(data) {
-		var singleListItem = document.querySelector('.single-list-item');
-		var listItemName = document.querySelector('.single-list-item__name');
-		var listItemDV = document.querySelector('.single-list-item__dv');
-		var list = document.querySelector('.list');
+	function populateNutrientDes() {
 		var vitaminButtons = document.querySelectorAll('.vitamin-button');
 		var myNeedsTitle = document.querySelector('.my-needs-title');
 		var myNeedsDes = document.querySelector('.my-needs-des');
 		var selectedVitaminName = document.querySelector('.selected-vitamin__name');
+		var myNeedsContainer = document.querySelector('.my-needs-container');
 
-		for (let i = 0; i < vitaminButtons.length; i++) {
-			if (vitaminButtons[i].classList.contains('active')) {
-				myNeedsTitle.innerHTML = vitaminButtons[i].dataset.value;
-				
-				selectedVitaminName.innerHTML = vitaminButtons[i].dataset.value;
-				console.log(vitaminButtons[i].dataset.value);
+		vitaminButtons.forEach(function(button) {
+			if (button.classList.contains('active')) {
+				var myNeedsTitle = document.createElement('h3');
+				myNeedsTitle.classList.add('my-needs-title');
+				myNeedsTitle.innerHTML = button.dataset.value;
+				myNeedsContainer.appendChild(myNeedsTitle);
+				selectedVitaminName.innerHTML = button.dataset.value;
 
 				for (let r = 0; r < vitaminDescription.length; r++) {
-					if (vitaminDescription[r].name == vitaminButtons[i].dataset.value) {
+					if (vitaminDescription[r].name == button.dataset.value) {
+						var myNeedsDes = document.createElement('p');
 						myNeedsDes.innerHTML = vitaminDescription[r].des;
+						myNeedsDes.classList.add('my-needs-des');
+						myNeedsContainer.appendChild(myNeedsDes);
 					}
 				}
 			}
-		}
+		});
+	}
 
+	function populateList(data, nurtientID) {
+		var vitaminButtons = document.querySelectorAll('.vitamin-button');
+		var singleListItem = document.querySelector('.single-list-item');
+		var listItemName = document.querySelector('.single-list-item__name');
+		var listItemDV = document.querySelector('.single-list-item__dv');
+		var list = document.createElement('div');
+		list.classList.add('list');
+		
+		createHeader(data);
+		
 		for (let i = 0; i < data.report.foods.length; i++) {
 
 
@@ -153,11 +174,44 @@ var SmartCart = (function(){
 			createNewListItemContainer.appendChild(createNewListItemCheckbox)
 			createNewListItem.appendChild(createNewListItemContainer);
 			list.appendChild(createNewListItem);
+			selectedVitaminContainer.append(list);
 
+			checkBoxEvent(createNewListItemCheckbox);
 			expandedWindowCreator(data, createNewListItem, listName, dataPrefix, i);
 			expandedWindowListener(createNewListItem);
 			
 		}
+	}
+
+	function createHeader(data, nurtientID) {
+		var popListMod = document.querySelector('.populated-list-module');
+		var addToListButton = document.querySelector('.add-to-list-button');
+
+		var selectedVitaminContainer = document.createElement('div');
+		var selectedVitaminContainerTitle = document.createElement('div');
+		var selectedVitaminName = document.createElement("h3");
+		var vitaminLegend = document.createElement('div');
+		var vitaminLegendDV = document.createElement('p');
+		var vitaminLegendAddToList = document.createElement('p');
+
+		selectedVitaminContainer.classList.add('selected-vitamin-container');
+		selectedVitaminContainerTitle.classList.add('selected-vitamin-container__title');
+		selectedVitaminName.classList.add('selected-vitamin__name');
+		vitaminLegend.classList.add('vitamin-legend');
+		vitaminLegendDV.classList.add('vitamin-legend__dv');
+		vitaminLegendAddToList.classList.add('add-to-list');
+
+		vitaminLegendDV.innerHTML = data.report.foods[0].nutrients[0].unit;
+		vitaminLegendAddToList.innerHTML = 'add to list';
+		selectedVitaminName.innerHTML = nurtientID;
+
+		vitaminLegend.appendChild(vitaminLegendDV);
+		vitaminLegend.appendChild(vitaminLegendAddToList);
+
+		selectedVitaminContainerTitle.appendChild(selectedVitaminName);
+		selectedVitaminContainer.appendChild(selectedVitaminContainerTitle);
+		selectedVitaminContainer.appendChild(vitaminLegend);
+		popListMod.insertBefore(selectedVitaminContainer, addToListButton);
 	}
 
 	function expandedWindowCreator (data, element, listName, dataPrefix, i) {
@@ -174,7 +228,7 @@ var SmartCart = (function(){
 		expandedInfoWindow.classList.add('expanded-info-window');
 
 		expandedInfoWindow.dataset.id = i;
-		console.log(expandedInfoWindow.dataset.id);
+		
 
 		expandedInfoWindowNurientsList.innerHTML = dataPrefix.nutrient + ': ' + `<br />` + dataPrefix.value;
 		expandedInfoWindowMeasurement.innerHTML = 'Measurement: ' + `<br />` + data.report.foods[i].measure;
@@ -184,24 +238,39 @@ var SmartCart = (function(){
 		expandedInfoWindow.appendChild(expandedInfoWindowName);
 		expandedInfoWindow.appendChild(expandedInfoWindowMeasurement);
 		expandedInfoWindow.appendChild(expandedInfoWindowNurients);
-		console.log(element);
+		
 		if (element.dataset.id == expandedInfoWindow.dataset.id) {
 			element.insertAdjacentElement('afterend', expandedInfoWindow);
 		}
 	}
 
 	function expandedWindowListener(element) {
-		element.addEventListener('click', function() {
+		element.addEventListener('click', function(e) {
 			var expandedInfoWindow = document.querySelectorAll('.expanded-info-window');
 
 			for (let i = 0; i < expandedInfoWindow.length; i++) {
 				
 				if (element.dataset.id == expandedInfoWindow[i].dataset.id) {
 					expandedInfoWindow[i].classList.toggle('active');
-					console.log('active');
 				}
 			}
 		});
+	}
+
+	function checkBoxEvent (element) {
+		element.addEventListener('click', function(e) {
+			e.stopPropagation();
+		})
+	}
+
+	function addToList () {
+		var listItem = document.querySelectorAll('.single-list-item');
+		
+		for (var i = 0; i < listItem.length; i++) {
+			if (listItem[i].firstChild.childNodes[2].checked) {
+				console.log(listItem[i].firstChild.childNodes[0].textContent)
+			}
+		}
 	}
 
 	function addToNewArray(data) {
@@ -215,35 +284,42 @@ var SmartCart = (function(){
 		e.preventDefault();
 
 		var vitaminButtons = document.querySelectorAll('.vitamin-button');
+		var ajaxLoader = document.querySelector('.ajax-loader');
+		ajaxLoader.classList.add('active');
 
 		let url = "https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=UagOcIiD2fvLJeWTT2wdjowabdjWJb3DX6GE86ZR&sort=c&max=20";
 
-		for (let i = 0; i < vitaminButtons.length; i++) {
-			if (vitaminButtons[i].classList.contains('active')) {
-				url += '&nutrients=' + vitaminButtons[i].dataset.id;
-			}
-		}
-		fetch(url)
-		  .then(
-		    function(response) {
-				if (response.status !== 200) {
-				console.log('Looks like there was a problem. Status Code: ' +
-				  response.status);
-				return;
-				}
+		vitaminButtons.forEach(function(item) {
+			if (item.classList.contains('active')) {
+				var newUrl = url + '&nutrients=' + item.dataset.id;
+				var nutrientID = item.dataset.value;
+				console.log(newUrl);
+				fetch(newUrl)
+				  .then(
+				    function(response) {
+						if (response.status !== 200) {
+						console.log('Looks like there was a problem. Status Code: ' +
+						  response.status);
+						return;
+						}
 
-				response.json().then(function(data) {
-				console.log(data);
-				data = data;
-				removeList();
-				// addToNewArray(data);
-				populateList(data);
-				});
-		    }
-		  )
-		  .catch(function(err) {
-		    console.log('Fetch Error :-S', err);
-		  });
+						response.json().then(function(data) {
+						console.log(data);
+						data = data;
+						ajaxLoader.classList.remove('active');
+						removeList();
+						// addToNewArray(data);
+						populateList(data, nutrientID);
+						});
+				    }
+				  )
+				  .catch(function(err) {
+				    console.log('Fetch Error :-S', err);
+				  });
+				newUrl = url;
+			}
+		})
+		populateNutrientDes();
 	}
 
 	function searchRecipies(e) {
