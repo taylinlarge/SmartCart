@@ -103,7 +103,6 @@ var SmartCart = (function(){
 	function populateNutrientDes() {
 		var vitaminButtons = document.querySelectorAll('.vitamin-button');
 		var myNeedsTitle = document.querySelector('.my-needs-title');
-		var myNeedsDes = document.querySelector('.my-needs-des');
 		var selectedVitaminName = document.querySelector('.selected-vitamin__name');
 		var myNeedsContainer = document.querySelector('.my-needs-container');
 
@@ -113,13 +112,13 @@ var SmartCart = (function(){
 				myNeedsTitle.classList.add('my-needs-title');
 				myNeedsTitle.innerHTML = button.dataset.value;
 				myNeedsContainer.appendChild(myNeedsTitle);
-				selectedVitaminName.innerHTML = button.dataset.value;
 
 				for (let r = 0; r < vitaminDescription.length; r++) {
 					if (vitaminDescription[r].name == button.dataset.value) {
 						var myNeedsDes = document.createElement('p');
-						myNeedsDes.innerHTML = vitaminDescription[r].des;
 						myNeedsDes.classList.add('my-needs-des');
+						myNeedsDes.innerHTML = vitaminDescription[r].des;
+						console.log(myNeedsDes);
 						myNeedsContainer.appendChild(myNeedsDes);
 					}
 				}
@@ -127,7 +126,7 @@ var SmartCart = (function(){
 		});
 	}
 
-	function populateList(data, nurtientID) {
+	function populateList(data, nutrientID) {
 		var vitaminButtons = document.querySelectorAll('.vitamin-button');
 		var singleListItem = document.querySelector('.single-list-item');
 		var listItemName = document.querySelector('.single-list-item__name');
@@ -135,10 +134,11 @@ var SmartCart = (function(){
 		var list = document.createElement('div');
 		list.classList.add('list');
 		
-		createHeader(data);
+		createHeader(data, nutrientID);
 		
-		for (let i = 0; i < data.report.foods.length; i++) {
+		var selectedVitaminContainer = document.querySelector('.selected-vitamin-container');
 
+		for (let i = 0; i < data.report.foods.length; i++) {
 
 			let dataPrefix = data.report.foods[i].nutrients[0];
 
@@ -183,7 +183,7 @@ var SmartCart = (function(){
 		}
 	}
 
-	function createHeader(data, nurtientID) {
+	function createHeader(data, nutrientID) {
 		var popListMod = document.querySelector('.populated-list-module');
 		var addToListButton = document.querySelector('.add-to-list-button');
 
@@ -203,7 +203,7 @@ var SmartCart = (function(){
 
 		vitaminLegendDV.innerHTML = data.report.foods[0].nutrients[0].unit;
 		vitaminLegendAddToList.innerHTML = 'add to list';
-		selectedVitaminName.innerHTML = nurtientID;
+		selectedVitaminName.innerHTML = nutrientID;
 
 		vitaminLegend.appendChild(vitaminLegendDV);
 		vitaminLegend.appendChild(vitaminLegendAddToList);
@@ -307,7 +307,7 @@ var SmartCart = (function(){
 						console.log(data);
 						data = data;
 						ajaxLoader.classList.remove('active');
-						removeList();
+						// removeList();
 						// addToNewArray(data);
 						populateList(data, nutrientID);
 						});
@@ -383,4 +383,3 @@ var SmartCart = (function(){
 }());
 
 SmartCart.init();
-
