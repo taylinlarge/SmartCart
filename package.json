@@ -1,7 +1,7 @@
 {
-  "name": "circus-starter",
+  "name": "SmartCart",
   "version": "1.2.3",
-  "description": "A good starting point for new Circus students",
+  "description": "An app that helps users find food with specific neutrients",
   "main": "gulpfile.js",
   "dependencies": {},
   "devDependencies": {
@@ -22,13 +22,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrissilich/circus-starter.git"
+    "url": "git+https://github.com/taylinlarge/SmartCart"
   },
-  "author": "Chris Silich",
+  "author": "Taylin Large",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrissilich/circus-starter/issues"
+    "url": "https://github.com/taylinlarge"
   },
-  "homepage": "https://github.com/chrissilich/circus-starter#readme",
+  "homepage": "https://github.com/taylinlarge",
   "babel": {}
 }
